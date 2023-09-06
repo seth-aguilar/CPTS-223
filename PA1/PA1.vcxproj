@@ -135,6 +135,10 @@
     <ClInclude Include="menu.h" />
     <ClInclude Include="node.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="commands.csv" />
+    <None Include="profiles.csv" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
