@@ -128,9 +128,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="menu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="linked_list.h" />
+    <ClInclude Include="menu.h" />
     <ClInclude Include="node.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
