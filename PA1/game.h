@@ -14,6 +14,7 @@ public:
 	void Game();
 	void runGame(linked_list<std::string, std::string> cmdList, std::fstream profiles);
 	void runGame(profile player);
+	profile loadGame();
 	void printMenu();
 };
 

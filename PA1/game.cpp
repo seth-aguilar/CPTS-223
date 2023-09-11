@@ -17,7 +17,7 @@ void game::Game()
 		{
 		case 1:	//Game Rules
 			system("cls");
-			std::cout << "These are the game rules" << std::endl;
+			std::cout << "Each round you are shown 3 definitions and 1 Linux command. Earn points by matching the correct definition to it's command." << std::endl;
 			system("pause");
 			system("cls");
 
@@ -31,14 +31,14 @@ void game::Game()
 			break;
 		case 3: //Load Previous Game
 			system("cls");
-			std::cout << "loading from save" << std::endl;
+			player = loadGame();
+			if (player.name != "NULL")
+			{
+				runGame(player);
+			}
 			system("pause");
 			system("cls");
 
-			//player = loadGame();
-			//if (player.name != "NULL") { //checking validity
-			//	playGame(player);
-			//}
 			break;
 		case 4: //Add Command
 			system("cls");
@@ -70,6 +70,45 @@ void game::Game()
 	}
 
 
+}
+
+void game::runGame(linked_list<std::string, std::string> cmdList, std::fstream profiles)
+{
+}
+
+void game::runGame(profile player)
+{
+}
+
+profile game::loadGame()
+{
+	std::fstream infile("profiles.csv");
+	std::string name, tmp;
+	profile player;
+	std::cout << "Please enter a profile name to load:" << std::endl;
+	std::cin >> name;
+
+	while (!infile.eof())
+	{
+		std::getline(infile, tmp, ',');
+		if (tmp == name)
+		{
+			player.name = tmp;
+			std::getline(infile, tmp);
+			player.points = std::stoi(tmp);
+			return player;
+			std::cout << "Profile found loading points" << std::endl;
+			system("pause");
+		}
+		std::cout << "Profile not found" << std::endl;
+		system("pause");
+		player.name = "NULL";
+		infile.close();
+		return player;
+
+	}
+
+	return player;
 }
 
 void game::printMenu()
