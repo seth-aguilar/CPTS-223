@@ -22,3 +22,14 @@ int main()
     game game;
     game.Game();
 }
+
+/*
+Currently Working :
+    Node and linked list templates
+    Menu and choice
+    Loading save
+Still needs implementaion :
+    Add and remove commands
+    Exit procedure
+    Game loop
+*/
