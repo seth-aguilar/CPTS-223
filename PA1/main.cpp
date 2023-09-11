@@ -1,16 +1,24 @@
 // code source: https://www.codesdope.com/blog/article/c-linked-lists-in-c-singly-linked-list/
 
-#include <iostream>
-#include "linked_list.h"
-#include "node.h"
-#include "menu.h"
+/*******************************************************************************************
+
+* Programmer: Seth Aguilar                                                                 *
+
+* Class: CptS 223                                                                          *
+
+* Programming Assignment: PA1                                                              *
+
+* Date:   9/15/2023                                                                        *
+
+* Description:  A game that matches linux commands to their definition                     *
+
+*******************************************************************************************/
+
+#include "game.h"
 
 int main()
 {
-    menu mainMenu;
-    mainMenu.printMenu();
-    linked_list a;
-    a.add_node(1);
-    a.add_node(2);
-    return 0;
+    srand(time(NULL));
+    game game;
+    game.Game();
 }

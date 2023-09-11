@@ -1,8 +1,13 @@
 #pragma once
+
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <iostream>
 
+template <class T1, class T2>
 struct node
 {
-    int data;
+    T1 data;
+    T2 data2;
     node* next;
 };
