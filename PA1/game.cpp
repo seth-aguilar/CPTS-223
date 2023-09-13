@@ -24,17 +24,17 @@ void game::Game()
 			break;
 		case 2: //Play Game
 			system("cls");
-			std::cout << "Playing game" << std::endl;
+			player = addProfile();
 			system("pause");
 			system("cls");
 
 			break;
 		case 3: //Load Previous Game
 			system("cls");
-			player = loadGame();
+			player = loadProfile();
 			if (player.name != "NULL")
 			{
-				runGame(player);
+				runGame(player, cmdList);
 			}
 			system("pause");
 			system("cls");
@@ -72,16 +72,39 @@ void game::Game()
 
 }
 
-void game::runGame(linked_list<std::string, std::string> cmdList, std::fstream profiles)
+void game::runGame(profile player, linked_list<std::string, std::string> cmdList)
 {
+	std::string cmdName, cmdDes, name;
+	int i = 0, size = 0, change = 0;
+
+	profile pList[100];
+	populateProfiles(pList);
+
+	while (i < 100 && pList[i].name != name) 
+	{ 
+		if (pList[i].name.empty()) 
+		{
+			pList[i].name = name;
+			pList[i].points = 0;
+			saveProfile(pList[i]);
+			i = 100;
+		}
+		i++;
+	}
+
+	if (pList[i].name == name)
+	{
+		change = playGameLoop(cmdList.getHead(), pList, pList[i], size);
+	}
+
+	pList[i].points = change;
+	updateProfile(pList[i]);
+
+	return;
+
 }
 
-void game::runGame(profile player)
-{
-
-}
-
-profile game::loadGame()
+profile game::loadProfile()
 {
 	std::fstream infile("profiles.csv");
 	std::string name, tmp;
@@ -102,7 +125,6 @@ profile game::loadGame()
 			system("pause");
 		}
 		std::cout << "Profile not found" << std::endl;
-		system("pause");
 		player.name = "NULL";
 		infile.close();
 		return player;
@@ -196,4 +218,119 @@ void game::removeCmd(linked_list<std::string, std::string> cmdList)
 
 	outfile << file; 
 	outfile.close();
+}
+
+profile game::addProfile()
+{
+	std::string newName;
+	profile newPlayer;
+
+	std::cout << "Please enter your name" << std::endl;
+
+	std::cin >> newName;
+
+	newPlayer.name = newName;
+	newPlayer.points = 0;
+
+	return newPlayer;
+}
+
+void game::saveProfile(profile player)
+{
+	std::fstream infile("profiles.csv");
+	std::string file = "", tempName, tempDes;
+	while (!infile.eof())
+	{ 
+		std::getline(infile, tempName, ',');
+
+		if (tempName == player.name)
+		{ 
+			if (!file.empty()) 
+			{
+				file = file + "\n" + player.name;
+			}
+			else 
+			{
+				file = file + player.name;
+			}
+			getline(infile, tempDes);
+			file = file + "," + std::to_string(player.points);
+		}
+		else {
+			if (!file.empty()) {
+				file = file + "\n" + tempName;
+			}
+			else {
+				file = file + tempName;
+			}
+			getline(infile, tempDes);
+			file = file + "," + tempDes;
+		}
+	}
+	infile.close();
+	std::ofstream outfile("profiles.csv");
+	outfile << file;
+	outfile.close();
+
+}
+
+void game::populateProfiles(profile pList[])
+{
+	std::string temp;
+	int count = 0;
+	std::fstream infile("profiles.csv");
+	while (!infile.eof() || count >= 100) 
+	{
+		std::getline(infile, pList[count].name, ',');
+		std::getline(infile, temp);
+		pList[count].points = stoi(temp);
+		count++;
+	}
+	infile.close();
+}
+
+void game::updateProfile(profile player)
+{
+	std::fstream infile("profiles.csv");
+	std::string file = "", tempName, tempDes;
+	while (!infile.eof()) 
+	{
+		std::getline(infile, tempName, ',');
+		if (tempName == player.name)
+		{
+			if (!file.empty()) 
+			{
+				file = file + "\n" + player.name;
+			}
+			else 
+			{
+				file = file + player.name;
+			}
+			getline(infile, tempDes);
+			file = file + "," + std::to_string(player.points); //update player's score
+		}
+		else 
+		{
+			if (!file.empty()) 
+			{
+				file = file + "\n" + tempName;
+			}
+			else {
+				file = file + tempName;
+			}
+			getline(infile, tempDes);
+			file = file + "," + tempDes;
+		}
+	}
+	infile.close();
+	std::ofstream outfile("profiles.csv");
+	outfile << file;
+	outfile.close();
+
+}
+
+std::ofstream& operator<<(std::ofstream& lhs, profile rhs)
+{
+	lhs << rhs.name << ',' << rhs.points;
+	return lhs;
 }

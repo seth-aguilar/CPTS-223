@@ -21,6 +21,7 @@ int main()
     srand(time(NULL));
     game game;
     game.Game();
+    return 0;
 }
 
 /*
@@ -29,8 +30,8 @@ Currently Working :
     Menu and choice
     Loading save
     Add and remove commands
+    Profile updating
 Still needs implementaion :
     Exit procedure
-    Profile updating
     Game loop
 */

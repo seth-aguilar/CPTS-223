@@ -12,11 +12,15 @@ class game
 {
 public:
 	void Game();
-	void runGame(linked_list<std::string, std::string> cmdList, std::fstream profiles);
-	void runGame(profile player);
-	profile loadGame();
+	void runGame(profile player, linked_list<std::string, std::string> cmdList);
+	profile loadProfile();
 	void printMenu();
 	void addCmd(linked_list<std::string, std::string> cmdList);
 	void removeCmd(linked_list<std::string, std::string> cmdList);
+	profile addProfile();
+	void saveProfile(profile player);
+	void populateProfiles(profile pList[]);
+	void updateProfile(profile player);
 };
 
+std::ofstream& operator<< (std::ofstream& lhs, profile rhs);
