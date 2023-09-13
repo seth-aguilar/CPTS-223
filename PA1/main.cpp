@@ -28,8 +28,9 @@ Currently Working :
     Node and linked list templates
     Menu and choice
     Loading save
-Still needs implementaion :
     Add and remove commands
+Still needs implementaion :
     Exit procedure
+    Profile updating
     Game loop
 */

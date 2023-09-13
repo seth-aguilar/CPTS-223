@@ -42,7 +42,7 @@ void game::Game()
 			break;
 		case 4: //Add Command
 			system("cls");
-			std::cout << "Add command" << std::endl;
+			addCmd(cmdList);
 			system("pause");
 			system("cls");
 
@@ -50,7 +50,7 @@ void game::Game()
 			break;
 		case 5: //Remove Command
 			system("cls");
-			std::cout << "Remove command" << std::endl;
+			removeCmd(cmdList);
 			system("pause");
 			system("cls");
 
@@ -78,6 +78,7 @@ void game::runGame(linked_list<std::string, std::string> cmdList, std::fstream p
 
 void game::runGame(profile player)
 {
+
 }
 
 profile game::loadGame()
@@ -120,4 +121,79 @@ void game::printMenu()
 	std::cout << "4. Add command" << std::endl;
 	std::cout << "5. Remove command" << std::endl;
 	std::cout << "6. Exit" << std::endl;
+}
+
+void game::addCmd(linked_list<std::string, std::string> cmdList)
+{
+	std::fstream infile("commands.csv");
+	std::string file = "", tmpName, tmpDef;
+
+	while (!infile.eof())
+	{ 
+		std::getline(infile, tmpName);
+		if (!file.empty())
+		{
+			file = file + "\n" + tmpName;
+		}
+		else
+		{
+			file = file + tmpName;
+		}
+	}
+
+	infile.close();
+	std::ofstream outfile("commands.csv"); 
+	std::cout << "What is the name of the command to be added?" << std::endl;
+	std::cin >> tmpName;
+	std::cout << "What is the definition of the command to be added?" << std::endl;
+
+	while (tmpDef.length() == 0) 
+	{
+		std::getline(std::cin, tmpDef);
+	}
+	tmpDef = "\"" + tmpDef + "\"";
+	file = file + "\n" + tmpName + "," + tmpDef;
+	outfile << file;
+	outfile.close();
+
+	cmdList.add_node(tmpName, tmpDef);
+}
+
+void game::removeCmd(linked_list<std::string, std::string> cmdList)
+{
+	std::fstream infile("commands.csv");
+	std::string file = "", tmpName, tmpDef, name;
+	std::cout << "What is the name of the command to be removed" << std::endl;
+	std::cin >> name;
+
+	cmdList.removeNode(name);
+
+	while (!infile.eof())
+	{ 
+		std::getline(infile, tmpName, ',');
+		if (tmpName != name)
+		{ 
+
+			if (!file.empty())
+			{
+				file = file + "\n" + tmpName;
+			}
+			else
+			{
+				file = file + tmpName;
+			}
+			std::getline(infile, tmpDef);
+			file = file + "," + tmpDef;
+		}
+		else
+		{
+			std::getline(infile, tmpDef);
+		}
+	}
+
+	infile.close();
+	std::ofstream outfile("commands.csv");
+
+	outfile << file; 
+	outfile.close();
 }

@@ -16,5 +16,7 @@ public:
 	void runGame(profile player);
 	profile loadGame();
 	void printMenu();
+	void addCmd(linked_list<std::string, std::string> cmdList);
+	void removeCmd(linked_list<std::string, std::string> cmdList);
 };
 

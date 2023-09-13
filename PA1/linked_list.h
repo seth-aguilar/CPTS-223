@@ -68,7 +68,7 @@ public:
         if (head == nullptr)
             return;
 
-        if (head->first == data)
+        if (head->data == data)
         {
             node<T1, T2>* tmp = head;
             head = head->next;
@@ -78,7 +78,7 @@ public:
 
         node<T1, T2>* temp = head;
         node<T1, T2>* prev = nullptr;
-        while (temp != nullptr && temp->first != data)
+        while (temp != nullptr && temp->data != data)
         {
             prev = temp;
             temp = temp->next;
