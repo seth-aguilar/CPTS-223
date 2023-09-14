@@ -15,6 +15,7 @@ class linked_list
 {
 private:
     node<T1, T2>* head, * tail;
+    int size;
 
     void recListDestruct(node<T1, T2>* tmp)
     {
@@ -107,6 +108,11 @@ public:
         return tail;
     }
 
+    int getSize()
+    {
+        return size;
+    }
+
     void populateList(std::fstream& infile, T1 data, T1 data2)
     {
         while (!infile.eof())
@@ -114,6 +120,7 @@ public:
             std::getline(infile, data, ',');
             std::getline(infile, data2);
             add_node(data, data2);
+            size++;
         }
     }
 };

@@ -25,6 +25,10 @@ void game::Game()
 		case 2: //Play Game
 			system("cls");
 			player = addProfile();
+			if (player.name != "NULL")
+			{
+				runGame(player, cmdList);
+			}
 			system("pause");
 			system("cls");
 
@@ -46,7 +50,6 @@ void game::Game()
 			system("pause");
 			system("cls");
 
-			//addCommand(cList);
 			break;
 		case 5: //Remove Command
 			system("cls");
@@ -54,7 +57,6 @@ void game::Game()
 			system("pause");
 			system("cls");
 
-			//removeCommand(cList);
 			break;
 		case 6: //Exit
 			system("cls");
@@ -77,31 +79,144 @@ void game::runGame(profile player, linked_list<std::string, std::string> cmdList
 	std::string cmdName, cmdDes, name;
 	int i = 0, size = 0, change = 0;
 
+	size = cmdList.getSize();
+
 	profile pList[100];
 	populateProfiles(pList);
 
-	while (i < 100 && pList[i].name != name) 
+	change = gameplayLoop(cmdList.getHead(), pList, player, size);
+
+	while (i < 100 && pList[i].name != player.name) 
 	{ 
-		if (pList[i].name.empty()) 
+		if (pList[i].name == player.name) 
 		{
-			pList[i].name = name;
-			pList[i].points = 0;
-			saveProfile(pList[i]);
-			i = 100;
+			pList[i].points = change;
 		}
 		i++;
 	}
 
-	if (pList[i].name == name)
-	{
-		change = playGameLoop(cmdList.getHead(), pList, pList[i], size);
-	}
-
-	pList[i].points = change;
-	updateProfile(pList[i]);
+	updateProfile(player);
 
 	return;
 
+}
+
+int game::gameplayLoop(node<std::string, std::string>* head, profile pList[], profile player, int i)
+{
+	int rand1, rand2, activeCmd, display, answer;
+	node<std::string, std::string>* tmp1 = head;
+	node<std::string, std::string>* tmp2 = head;
+	node<std::string, std::string>* tmp3 = head;
+	int count = 0, loopsize = 0;
+	system("cls");
+	std::cout << "How many round would you like to play?" << std::endl;
+	std::cin >> loopsize;
+	while (count < loopsize) 
+	{
+		system("cls");
+		rand1 = rand() % i;
+		rand2 = rand() % i;
+		do 
+		{
+			activeCmd = rand() % i;
+		} while (activeCmd == rand1 || activeCmd == rand2);
+
+		tmp1 = head;
+		tmp2 = head;
+		tmp3 = head;
+
+		for (int i = 0; i < activeCmd; i++)
+		{
+			tmp1 = tmp1->next;
+		}
+		for (int i = 0; i < rand1; i++)
+		{
+			tmp2 = tmp2->next;
+		}
+		for (int i = 0; i < rand2; i++)
+		{
+			tmp3 = tmp3->next;
+		}
+
+		display = rand() % 3 + 1;
+
+		std::cout << tmp1->data << std::endl;
+
+		rand1 = rand() % 2;
+
+		if (display == 1)
+		{
+			std::cout << "1. " << tmp1->data2 << std::endl;
+			if (rand1)
+			{
+				std::cout << "2. " << tmp2->data2 << std::endl;
+				std::cout << "3. " << tmp3->data2 << std::endl;
+			}
+			else
+			{
+				std::cout << "2. " << tmp3->data2 << std::endl;
+				std::cout << "3. " << tmp2->data2 << std::endl;
+			}
+		}
+		if (display == 2)
+		{
+			if (rand1)
+			{
+				std::cout << "1. " << tmp2->data2 << std::endl;
+				std::cout << "2. " << tmp1->data2 << std::endl;
+				std::cout << "3. " << tmp3->data2 << std::endl;
+			}
+			if (!rand1)
+			{
+				std::cout << "1. " << tmp3->data2 << std::endl;
+				std::cout << "2. " << tmp1->data2 << std::endl;
+				std::cout << "3. " << tmp2->data2 << std::endl;
+			}
+		}
+		if (display == 3)
+		{
+			if (rand1)
+			{
+				std::cout << "1. " << tmp2->data2 << std::endl;
+				std::cout << "2. " << tmp3->data2 << std::endl;
+			}
+			else
+			{
+				std::cout << "1. " << tmp3->data2 << std::endl;
+				std::cout << "2. " << tmp2->data2 << std::endl;
+			}
+			std::cout << "3. " << tmp1->data2 << std::endl;
+		}
+
+		std::cout << "Select your answer: ";
+		std::cin >> answer;
+
+		if (answer == display) 
+		{
+			answer = 0;
+			player.points++;
+			std::cout << "Correct! You earn one point. Your point total is now " << std::to_string(player.points) << std::endl << "Type any number to continue" << std::endl;
+			while (answer == 0) 
+			{
+				std::cin >> answer;
+			}
+		}
+		else {
+			answer = 0;
+			player.points--;
+			std::cout << "Wrong answer! You lose one point. Your point total is now " << std::to_string(player.points) << std::endl << "Type any number to continue" << std::endl;
+			while (answer == 0) 
+			{
+				std::cin >> answer;
+			}
+		}
+
+		count++;
+		answer = 0;
+		display = 0;
+	}
+
+	return player.points;
 }
 
 profile game::loadProfile()
@@ -279,11 +394,11 @@ void game::populateProfiles(profile pList[])
 	std::string temp;
 	int count = 0;
 	std::fstream infile("profiles.csv");
-	while (!infile.eof() || count >= 100) 
+	while (infile.eof() == true || count >= 100)
 	{
 		std::getline(infile, pList[count].name, ',');
 		std::getline(infile, temp);
-		pList[count].points = stoi(temp);
+		pList[count].points = std::stoi(temp);
 		count++;
 	}
 	infile.close();

@@ -13,6 +13,7 @@ class game
 public:
 	void Game();
 	void runGame(profile player, linked_list<std::string, std::string> cmdList);
+	int gameplayLoop(node<std::string, std::string>* head, profile pList[], profile player, int i);
 	profile loadProfile();
 	void printMenu();
 	void addCmd(linked_list<std::string, std::string> cmdList);

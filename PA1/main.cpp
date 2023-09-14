@@ -18,7 +18,7 @@
 
 int main()
 {
-    srand(time(NULL));
+    srand((unsigned)time(NULL));
     game game;
     game.Game();
     return 0;
