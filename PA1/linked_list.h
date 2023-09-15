@@ -47,7 +47,11 @@ public:
         tmp->next = NULL;
 
         if (head == NULL)
-            insertAtFront(tmp);
+        {
+            head = tmp;
+            tail = tmp;
+        }
+            //insertAtFront(tmp);
         
         else
         {
@@ -59,9 +63,9 @@ public:
     void insertAtFront(node<T1, T2>* tmp)
     {
         if (tmp != nullptr) 
-        {
+        {           
             tmp->next = head;
-            head = tmp->next;
+            head = tmp;
         }
     }
 

@@ -31,7 +31,7 @@ Currently Working :
     Loading save
     Add and remove commands
     Profile updating
+    Game loop
 Still needs implementaion :
     Exit procedure
-    Game loop
 */
