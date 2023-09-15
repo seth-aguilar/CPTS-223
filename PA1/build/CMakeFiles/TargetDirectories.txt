@@ -1,0 +1,3 @@
+/mnt/c/Users/sethc/Documents/Github/cpts223_pa1/PA1/build/CMakeFiles/PA1.dir
+/mnt/c/Users/sethc/Documents/Github/cpts223_pa1/PA1/build/CMakeFiles/edit_cache.dir
+/mnt/c/Users/sethc/Documents/Github/cpts223_pa1/PA1/build/CMakeFiles/rebuild_cache.dir

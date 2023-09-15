@@ -25,6 +25,22 @@ int main()
 }
 
 /*
+
+* ADVANTAGES/DISADVANTAGES LINKED LIST:
+
+Advantage: Linked lists offer straightforward manipulation. Modifying and particularly updating nodes is simpler compared to managing an array across numerous functions.
+Disadvantage: Traversing the list can be cumbersome. It necessitates the creation of node pointers and manual navigation, which isn't very efficient.
+
+* ADVANTAGES/DISADVANTAGES ARRAY:
+
+Advantage: Arrays, in comparison, facilitate effortless searching. Locating a specific profile is swift and uncomplicated, especially when the index is known.
+Disadvantage: Managing an array across multiple functions can be challenging. For instance, updating a player's score demanded navigating through some convoluted steps that wouldn't be necessary with node pointers.
+
+
+*/
+
+
+/*
 Currently Working :
     Node and linked list templates
     Menu and choice
