@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <limits>
+#include <climits>
 #include <queue>
 using namespace std;
 
@@ -166,12 +167,12 @@ public:
 	 * Print the nodes level by level, starting from the root
 	 */
 	void printLevelOrder() {
-		if (!_root) {
+		if (!this->_root) {
 			return;
 		}
 
 		queue<Node<T>*> q;
-		q.push(_root);
+		q.push(this->_root);
 
 		while (!q.empty()) {
 			Node<T>* currentNode = q.front();
@@ -202,7 +203,32 @@ public:
 	 * TODO: Implement printMaxPath
 	 */
 	void printMaxPath() {
-		cout << "TODO: Implement printMaxPath" << endl;
+		if (!this->_root) {
+			return;
+		}
+
+		std::queue<Node<T>*> q;
+		q.push(this->_root);
+
+		while (!q.empty()) {
+			int count = q.size();
+			int maxVal = INT_MIN;
+
+			for (int i = 0; i < count; i++) {
+				Node<T>* curr = q.front();
+				q.pop();
+
+				maxVal = std::max(maxVal, curr->value);
+
+				if (curr->left) {
+					q.push(curr->left);
+				}
+				if (curr->right) {
+					q.push(curr->right);
+				}
+			}
+			std::cout << maxVal << " ";
+		}
 	}
 
 	bool deleteValue(T value) {
