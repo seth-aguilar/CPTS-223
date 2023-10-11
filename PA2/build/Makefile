@@ -129,30 +129,6 @@ PA2/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PA2.dir/build.make CMakeFiles/PA2.dir/build
 .PHONY : PA2/fast
 
-AVLTree.o: AVLTree.cpp.o
-.PHONY : AVLTree.o
-
-# target to build an object file
-AVLTree.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PA2.dir/build.make CMakeFiles/PA2.dir/AVLTree.cpp.o
-.PHONY : AVLTree.cpp.o
-
-AVLTree.i: AVLTree.cpp.i
-.PHONY : AVLTree.i
-
-# target to preprocess a source file
-AVLTree.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PA2.dir/build.make CMakeFiles/PA2.dir/AVLTree.cpp.i
-.PHONY : AVLTree.cpp.i
-
-AVLTree.s: AVLTree.cpp.s
-.PHONY : AVLTree.s
-
-# target to generate assembly for a file
-AVLTree.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PA2.dir/build.make CMakeFiles/PA2.dir/AVLTree.cpp.s
-.PHONY : AVLTree.cpp.s
-
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -186,9 +162,6 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... PA2"
-	@echo "... AVLTree.o"
-	@echo "... AVLTree.i"
-	@echo "... AVLTree.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

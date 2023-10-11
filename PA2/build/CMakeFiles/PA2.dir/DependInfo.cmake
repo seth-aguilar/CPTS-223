@@ -8,7 +8,6 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/mnt/c/Users/sethc/Documents/GitHub/CptS223/PA2/AVLTree.cpp" "CMakeFiles/PA2.dir/AVLTree.cpp.o" "gcc" "CMakeFiles/PA2.dir/AVLTree.cpp.o.d"
   "/mnt/c/Users/sethc/Documents/GitHub/CptS223/PA2/main.cpp" "CMakeFiles/PA2.dir/main.cpp.o" "gcc" "CMakeFiles/PA2.dir/main.cpp.o.d"
   )
 

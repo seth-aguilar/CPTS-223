@@ -1,6 +1,4 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/PA2.dir/AVLTree.cpp.o"
-  "CMakeFiles/PA2.dir/AVLTree.cpp.o.d"
   "CMakeFiles/PA2.dir/main.cpp.o"
   "CMakeFiles/PA2.dir/main.cpp.o.d"
   "PA2"
