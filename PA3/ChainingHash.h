@@ -10,6 +10,7 @@
 #include <vector>
 #include <list>
 #include <stdexcept>
+#include <algorithm>
 
 // Custom project includes
 #include "Hash.h"
@@ -69,8 +70,12 @@ public:
 
     bool insert(const std::pair<K, V>& pair) {
         int bucket = hash(pair.first);
-        if (std::find(table[bucket].begin(), table[bucket].end(), pair) != table[bucket].end()) {
-            return false;  // Element already exists
+        auto it = std::find_if(table[bucket].begin(), table[bucket].end(),
+            [&pair](const std::pair<K, V>& existingPair) {
+                return existingPair.first == pair.first;
+            });
+        if (it != table[bucket].end()) {
+            return false;  // Element with the same key already exists
         }
         table[bucket].push_back(pair);
         if (++currentSize > table.size() * 0.75) {

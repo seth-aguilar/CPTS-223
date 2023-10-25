@@ -9,7 +9,12 @@
 
 void testHash(Hash<int, int> *hash, std::ofstream &myfile)
 {
-
+    //if (dynamic_cast<ChainingHash<int, int>*>(hash)) { // For my own testing
+    //    myfile << "Testing ChainingHash...\n";
+    //}
+    //else if (dynamic_cast<ProbingHash<int, int>*>(hash)) {
+    //    myfile << "Testing ProbingHash...\n";
+    //}
     myfile << "current size: " << hash->size() << " bucket count: " << hash->bucket_count()
            << " load factor: " << hash->load_factor() << std::endl;
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();

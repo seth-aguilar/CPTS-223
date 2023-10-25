@@ -32,9 +32,15 @@ private:
         entryState.resize(newSize, EMPTY);
 
         currentSize = 0;
-        for (int i = 0; i < oldTable.size(); ++i) {
+        for (size_t i = 0; i < oldTable.size(); ++i) {
             if (oldEntryState[i] == VALID) {
-                insert(oldTable[i]);
+                int bucket = hash(oldTable[i].first);
+                while (entryState[bucket] == VALID) {  // Find the next available slot
+                    bucket = (bucket + 1) % table.size();
+                }
+                table[bucket] = oldTable[i];
+                entryState[bucket] = VALID;
+                ++currentSize;
             }
         }
     }
@@ -79,7 +85,7 @@ public:
             bucket = (bucket + 1) % table.size();
         } while (bucket != originalBucket);
 
-        return false;  // Table is full
+        return false;  // Table is full    
     }
 
     void erase(const K& key) {
@@ -96,7 +102,7 @@ public:
     }
 
     void clear() {
-        for (int i = 0; i < table.size(); ++i) {
+        for (size_t i = 0; i < table.size(); ++i) {  // Change int to size_t
             entryState[i] = EMPTY;
         }
         currentSize = 0;
